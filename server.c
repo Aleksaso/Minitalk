@@ -6,7 +6,7 @@
 /*   By: asilva-o <asilva-o@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:44:51 by asilva-o          #+#    #+#             */
-/*   Updated: 2024/05/03 10:36:50 by asilva-o         ###   ########.fr       */
+/*   Updated: 2024/05/04 13:28:43 by asilva-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
-
 typedef struct
 {
 	int	c;

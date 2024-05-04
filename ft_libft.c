@@ -6,7 +6,7 @@
 /*   By: asilva-o <asilva-o@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:35:20 by asilva-o          #+#    #+#             */
-/*   Updated: 2024/05/03 12:05:31 by asilva-o         ###   ########.fr       */
+/*   Updated: 2024/05/04 12:24:19 by asilva-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ size_t	ft_strlen(const char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_str(char *str)
+
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (ft_str("NULL"));
+	while (str[i])
+	{
+		write(1, &str[i], 1);
 		i++;
 	}
 	return (i);

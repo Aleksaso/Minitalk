@@ -6,7 +6,7 @@
 /*   By: asilva-o <asilva-o@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 22:13:57 by asilva-o          #+#    #+#             */
-/*   Updated: 2024/05/03 11:28:34 by asilva-o         ###   ########.fr       */
+/*   Updated: 2024/05/04 12:14:59 by asilva-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ int		ft_char(char c);
 int		ft_simbol(void);
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
-int		ft_counter1(int nb);
 int		ft_putnbr(int nb);
 int		ft_hexd(unsigned int n, char type);
-void	recursiva(unsigned long long nbr, char *base);
 int		ft_ptro(unsigned long long n);
 int		ft_str(char *str);
-int		ft_counter2(unsigned int nb);
+int		ft_counter(unsigned long long n, int base);
 int		ft_nbru(unsigned int nb);
 
 #endif

@@ -6,57 +6,32 @@
 /*   By: asilva-o <asilva-o@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:46:20 by asilva-o          #+#    #+#             */
-/*   Updated: 2024/05/03 11:53:42 by asilva-o         ###   ########.fr       */
+/*   Updated: 2024/05/04 12:46:23 by asilva-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_counter(unsigned long long n)
+int	ft_counter(unsigned long long n, int base)
 {
-	size_t	size;
+	int	size;
 
-	size = 0;
-	if (n <= 0)
-		n *= -1;
-	if (n > 15)
+	size = 1;
+	if (n == 0)
+		return (size);
+	while (n / base)
 	{
-		while (n != 0)
-		{
-			size++;
-			n /= 16;
-		}
-	}
-	else
+		n /= base;
 		size++;
+	}
 	return (size);
-}
-
-int	ft_counter1(int nb)
-{
-	int	cnt;
-
-	cnt = 0;
-	if (nb < 0)
-	{
-		nb = nb * (-1);
-		cnt++;
-	}
-	if (nb == 0)
-		cnt++;
-	while (nb != 0)
-	{
-		nb = nb / 10;
-		cnt++;
-	}
-	return (cnt);
 }
 
 int	ft_putnbr(int nb)
 {
 	int	x;
 
-	x = ft_counter1(nb);
+	x = ft_counter(nb, 10);
 	if (nb == -2147483648)
 	{
 		write(1, "-2147483648", 11);
@@ -78,81 +53,49 @@ int	ft_putnbr(int nb)
 
 int	ft_hexd(unsigned int n, char type)
 {
-	char	*base;
-	long	num;
+	const char	*base;
+	int			x;
 
-	num = n;
 	if (type == 'X')
+	{
 		base = "0123456789ABCDEF";
+	}
 	else
+	{
 		base = "0123456789abcdef";
-	if (n > 15)
-	{
-		ft_hexd(num / 16, type);
-		num %= 16;
 	}
-	write(1, &base[num], 1);
-	return (ft_counter(n));
-}
-
-void	recursiva(unsigned long long nbr, char *base)
-{
-	if (nbr > 15)
+	x = ft_counter(n, 16);
+	while (n > 15)
 	{
-		recursiva(nbr / 16, base);
-		nbr %= 16;
+		ft_hexd(n / 16, type);
+		n %= 16;
 	}
-	write(1, &base[nbr], 1);
+	write(1, &base[n], 1);
+	return (x);
 }
 
 int	ft_ptro(unsigned long long n)
 {
-	char	*base;
+	const char	*base;
+	int			x;
 
 	base = "0123456789abcdef";
 	write(1, "0x", 2);
-	recursiva(n, base);
-	return (ft_counter(n) + 2);
-}
-
-int	ft_str(char *str)
-
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
+	x = ft_counter(n, 16) + 2;
+	while (n > 15)
 	{
-		i = ft_str("(null)");
-		return (i);
+		ft_ptro(n / 16);
+		n %= 16;
 	}
-	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
-}
-int	ft_counter2(unsigned int nb)
-{
-	int	cnt;
-
-	cnt = 0;
-	if (nb == 0)
-		cnt++;
-	while (nb != 0)
-	{
-		nb = nb / 10;
-		cnt++;
-	}
-	return (cnt);
+	write(1, &base[n], 1);
+	return (x);
 }
 
 int	ft_nbru(unsigned int nb)
 {
 	int	res;
 
-	res = ft_counter2(nb);
+	res = ft_counter(nb, 10);
 	if (nb > 9)
 	{
 		ft_nbru(nb / 10);
