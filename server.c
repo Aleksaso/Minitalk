@@ -14,40 +14,32 @@
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
-typedef struct
-{
-	int	c;
-	int	i;
-} Msg;
 
-Msg	g_msg = {0, 0};
-
-void	manejar_bit(int bit)
+void	manage_bit(int signal)
 {
-	g_msg.c += ((bit & 1) << g_msg.i);
-	g_msg.i++;
-	if (g_msg.i == 7)
+	static char	c;
+	static char	i;
+
+	if (signal == SIGUSR2)
+		c = (c | (1 << i));
+	i++;
+	if (i == 8)
 	{
-		ft_printf("%c", g_msg.c);
-		if (!g_msg.c)
-			ft_printf("\n");
-		g_msg.c = 0;
-		g_msg.i = 0;
+		write(1, &c, 1);
+		if (!c)
+			write(1, "\n", 1);
+		c = 0;
+		i = 0;
 	}
 }
 
 int	main(void)
 {
 	ft_printf("Welcome Server!\n");
-	ft_printf("Mi Server PID es: %d\n", getpid());
+	ft_printf("My Server PID : %d\n", getpid());
+	signal(SIGUSR2, manage_bit);
+	signal(SIGUSR1, manage_bit);
 	while (1)
-	{
-		signal(SIGUSR2, manejar_bit);
-		signal(SIGUSR1, manejar_bit);
-		while (1)
-		{
-			pause();
-		}
-	}
+		pause();
 	return (0);
 }
