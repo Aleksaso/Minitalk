@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "ft_printf.h"
 #include <signal.h>
+#include <unistd.h>
 #include <stddef.h>
 
-void	enviar_bit(int pid, char *str, size_t len)
+void	send_bit(int pid, char *str, size_t len)
 {
 	int		shift;
 	size_t	i;
@@ -23,14 +25,14 @@ void	enviar_bit(int pid, char *str, size_t len)
 	while (i <= len)
 	{
 		shift = 0;
-		while (shift < 7)
+		while (shift < 8)
 		{
 			if ((str[i] >> shift) & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
 			shift++;
-			usleep(300);
+			usleep(200);
 		}
 		i++;
 	}
@@ -44,9 +46,16 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
+		if (pid <= 0)
+		{
+			ft_printf("\nWrong PID\n\n");
+			return (1);
+		}
 		str = argv[2];
-		enviar_bit(pid, str, ft_strlen(str));
+		send_bit(pid, str, ft_strlen(str));
 	}
 	else
-		ft_printf("\nTE HAS EQUIVOCADO EN ALGUNA COSA\n\n");
-}
+	{
+		ft_printf("\nWrong input\n\n");
+	}
+	return (0);
