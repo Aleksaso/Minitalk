@@ -1,4 +1,3 @@
-
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
@@ -12,32 +11,34 @@ LIBFTPRINTF = libftprintf.a
 SERVER_TARGET = server
 CLIENT_TARGET = client
 
-.PHONY:	all clean fclean re
+.PHONY: all clean fclean re
 
-all: $(SERVER_TARGET)  $(CLIENT_TARGET)
+all: $(SERVER_TARGET) $(CLIENT_TARGET)
 
 $(SERVER_TARGET): $(SERVER_SRC) $(LIBFTPRINTF)
-	$(CC) $(CFLAGS) -Ift_printf/headers -L. -lftprintf $< -o $@
+	$(CC) $(CFLAGS) -I. $< -L. -lftprintf -o $@
 
 $(CLIENT_TARGET): $(CLIENT_SRC) $(LIBFTPRINTF)
-	$(CC) $(CFLAGS) -Ift_printf/headers -L. -lftprintf $< -o $@
-
+	$(CC) $(CFLAGS) -I. $< -L. -lftprintf -o $@
 
 $(LIBFTPRINTF): $(LIBFTPRINTF_OBJ)
 	ar rcs $@ $^
 	@echo ""
-	@echo "El servido y el cliente están listos!"
+	@echo "El servidor y el cliente están listos!"
 	@echo ""
 
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+	
 clean:
-	@echo ""
 	rm -f $(LIBFTPRINTF_OBJ)
+	@echo ""
 	@echo "Se han limpiado correctamente los archivos .o"
 	@echo ""
 
 fclean: clean
-	@echo ""
 	rm -f $(LIBFTPRINTF) $(SERVER_TARGET) $(CLIENT_TARGET)
+	@echo ""
 	@echo "El servidor y el cliente se han limpiado correctamente"
 	@echo ""
 
