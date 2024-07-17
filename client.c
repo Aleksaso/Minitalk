@@ -6,10 +6,9 @@
 /*   By: asilva-o <asilva-o@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:33:36 by asilva-o          #+#    #+#             */
-/*   Updated: 2024/05/03 12:29:16 by asilva-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:53:49 by asilva-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_printf.h"
 #include <signal.h>
@@ -59,3 +58,4 @@ int	main(int argc, char **argv)
 		ft_printf("\nWrong input\n\n");
 	}
 	return (0);
+}
